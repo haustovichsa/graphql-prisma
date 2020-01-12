@@ -1,0 +1,7 @@
+deploy dev prisma server
+ - go to prisma folder
+ - prisma deploy -e ../config/dev.env (cmd)
+
+deploy prod prisma server
+ - prisma login (cmd)
+ - prisma deploy -e ../config/prod.env
