@@ -5,3 +5,9 @@ deploy dev prisma server
 deploy prod prisma server
  - prisma login (cmd)
  - prisma deploy -e ../config/prod.env
+
+ deploy prod heroku server
+ - heroku create (first time) 
+ - heroku config:set PRISMA_ENDPOINT=... (from prod convig)
+ - heroku config:set PRISMA_SECRET=... (from prod convig)
+ - git push heroku master (load latest code and run server)
