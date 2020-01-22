@@ -1,5 +1,4 @@
 import 'cross-fetch/polyfill'
-import { gql } from 'apollo-boost'
 import '@babel/polyfill/noConflict'
 import prisma from '../src/prisma'
 import seedDatabase, { userOne, postOne, postTwo } from './utils/seedDatabase'
@@ -62,11 +61,10 @@ test('Should create a new post', async () => {
 test('should delete post', async () => {
     const client = getClient(userOne.jwt)
 
-    const variables = {
-        id: postTwo.post.id
-    }
+    const variables = { id: postTwo.post.id }
 
     await client.mutate({ mutation: deletePost, variables })
+ 
     const exists = await prisma.exists.Post({ id: postTwo.post.id })
 
     expect(exists).toBe(false)

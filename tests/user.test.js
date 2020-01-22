@@ -12,8 +12,8 @@ beforeEach(seedDatabase)
 test('Should create a new user', async () => {
     const variables = {
         data: {
-            name: 'Sergey KhaustovichTest',
-            email: 'SergeyKhaustovich@test.test',
+            name: 'Sergey Chan',
+            email: 'SergeyChan@test.test',
             password: 'Qwerty12'    
         }
     }
@@ -29,15 +29,15 @@ test('Should create a new user', async () => {
 test('Should expose public author profile', async () => {
    const responce = await client.query({ query: getUsers })
 
-    expect(responce.data.users.length).toBe(1)
+    expect(responce.data.users.length).toBe(2)
     expect(responce.data.users[0].email).toBe(null)
-    expect(responce.data.users[0].name).toBe("Pavel Khaustovich")
+    expect(responce.data.users[0].name).toBe("Pavel Chan")
 })
 
 test('should not login with bad credentials', async () => {
     const variables = {
         data: {
-            email: 'PavelKhaustovich@gmail.com',
+            email: 'PavelChan@gmail.com',
             password: 'testpassword'
         }
     }
@@ -51,7 +51,7 @@ test('Should not signup user with invalid password', async () => {
     const variables = {
         data: {
             name: 'Nina',
-            email: 'NinaKhaustovich@gmail.com',
+            email: 'NinaChan@gmail.com',
             password: 'pass'
         }
     }
