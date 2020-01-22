@@ -2,7 +2,7 @@ import 'cross-fetch/polyfill'
 import { gql } from 'apollo-boost'
 import '@babel/polyfill/noConflict'
 import prisma from '../src/prisma'
-import seedDatabase, { userOne, postOne } from './utils/seedDatabase'
+import seedDatabase, { userOne, postOne, postTwo } from './utils/seedDatabase'
 import getClient from './utils/getClient'
 
 const client = getClient()
@@ -65,4 +65,47 @@ test('should be able update own post', async () => {
 
     expect(data.updatePost.published).toBe(false)
     expect(exists).toBe(true)
+})
+
+test('Should create a new post', async () => {
+    const client = getClient(userOne.jwt)
+    const createPost = gql`
+        mutation {
+            createPost(
+                data: {
+                    title: "A test post",
+                    body: "",
+                    published: true
+                }
+            ) {
+                id
+                title
+                body
+                published
+            }
+        }
+    `
+    const { data } = await client.mutate({ mutation: createPost })
+
+    expect(data.createPost.title).toBe("A test post")
+    expect(data.createPost.body).toBe("")
+    expect(data.createPost.published).toBe(true)
+
+})
+
+test('should delete post', async () => {
+    const client = getClient(userOne.jwt)
+    const deletePost = gql`
+        mutation {
+            deletePost(
+                id: "${postTwo.post.id}"
+            ){
+                id
+            }
+        }
+    `
+    await client.mutate({ mutation: deletePost })
+    const exists = await prisma.exists.Post({ id: postTwo.post.id })
+
+    expect(exists).toBe(false)
 })
