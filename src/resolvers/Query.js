@@ -41,9 +41,8 @@ const query =  {
         return prisma.query.posts(opArgs, info)
     },
 
-    myPost(parent, args, { prisma, query }, info) {
+    myPosts(parent, args, { prisma, request }, info) {
         const userId = getUserId(request)
-
         const opArgs = {
             first: args.first,
             skip: args.skip,
@@ -55,7 +54,6 @@ const query =  {
                 }
             }
         }
-
         if (args.query) {
             opArgs.where.OR = [{
                 title_contains: args.query
@@ -63,7 +61,6 @@ const query =  {
                 body_contains: args.query
             }]
         }
-
         return prisma.query.posts(opArgs, info)
     },
 
