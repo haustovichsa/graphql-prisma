@@ -12,6 +12,15 @@ const userOne = {
     jwt: undefined
 }
 
+const postOne = {
+    input: {
+        title: 'My published post',
+        body: '',
+        published: true,
+    },
+    post: undefined
+}
+
 const seedDatabase = async () => {
     // delete test data
     await prisma.mutation.deleteManyPosts()
@@ -24,11 +33,10 @@ const seedDatabase = async () => {
 
     userOne.jwt = jwt.sign({ userId: userOne.user.id }, process.env.JWT_SECRET)
 
-    await prisma.mutation.createPost({
+    // create post one
+    postOne.post = await prisma.mutation.createPost({
         data: {
-            title: 'My published post',
-            body: '',
-            published: true,
+            ...postOne.input,
             author: {
                 connect: {
                     id: userOne.user.id
@@ -37,6 +45,7 @@ const seedDatabase = async () => {
         }
     })
 
+    // create post
     await prisma.mutation.createPost({
         data: {
             title: 'My draft post',
@@ -51,4 +60,4 @@ const seedDatabase = async () => {
     })
 }
 
-export { seedDatabase as default, userOne }
+export { seedDatabase as default, userOne, postOne }
