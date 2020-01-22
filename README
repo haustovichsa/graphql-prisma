@@ -1,15 +1,15 @@
 deploy dev prisma server
  - go to prisma folder
- - prisma deploy -e ../config/dev.env (cmd)
+ - prisma deploy -e ../config/dev.env
 
 deploy prod prisma server
- - prisma login (cmd)
+ - prisma login
  - go to prisma folder 
  - prisma deploy -e ../config/prod.env
 
  deploy prod heroku server
  - heroku create (first time) 
- - heroku config:set PRISMA_ENDPOINT=... (from prod convig)
- - heroku config:set PRISMA_SECRET=... (from prod convig)
- - heroku config:set JWT_SECRET=... (from prod convig)
+ - heroku config:set PRISMA_ENDPOINT=... (from prod config)
+ - heroku config:set PRISMA_SECRET=... (from prod config)
+ - heroku config:set JWT_SECRET=... (from prod config)
  - git push heroku master (load latest code and run server)
