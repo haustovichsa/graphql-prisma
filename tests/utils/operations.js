@@ -125,6 +125,14 @@ const subscribeToComments = gql`
     }
 `
 
+const subscribeToPosts = gql`
+    subscription {
+        post {
+            mutation
+        }
+    }
+`
+
 export {
     createUser,
     login,
@@ -136,5 +144,6 @@ export {
     createPost,
     deletePost,
     deleteComment,
-    subscribeToComments
+    subscribeToComments,
+    subscribeToPosts
 }
