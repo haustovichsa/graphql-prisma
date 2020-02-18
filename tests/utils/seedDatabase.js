@@ -56,6 +56,7 @@ const commentTwo = {
 
 const seedDatabase = async () => {
     // delete test data
+    await prisma.mutation.deleteManyComments()
     await prisma.mutation.deleteManyPosts()
     await prisma.mutation.deleteManyUsers()
     
